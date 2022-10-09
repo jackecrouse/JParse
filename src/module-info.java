@@ -6,4 +6,5 @@
  *
  */
 module JParse {
+	requires org.jsoup;
 }
