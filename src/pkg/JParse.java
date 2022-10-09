@@ -16,6 +16,8 @@ public class JParse {
 		
 		final Document doc = Jsoup.connect(URL).get();
 		stringDoc = doc.outerHtml().toString();
+		System.out.println(stringDoc + "\n" + "-----------------");
+		
 	}
 	
 	catch (Exception ex) {
@@ -24,7 +26,14 @@ public class JParse {
 	
 	String[] lines = stringDoc.split("\n");
 	for (String line: lines) {
-		if(line.contains("http")) {arr.add(line);};
+		//checks if contains href and (https or http)
+		if(line.contains("href") && (line.contains("https") || line.contains("http"))) {
+			//System.out.println(line);
+			if(line.contains("href=")){ line = line.split("href=")[1];}
+			if(line.contains("\"")){ line = line.split("\"")[1];}
+			
+			arr.add(line);
+		}
 	}
 	return arr;
 }
