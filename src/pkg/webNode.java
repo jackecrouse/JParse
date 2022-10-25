@@ -10,12 +10,12 @@ import org.jsoup.nodes.Document;
 public class webNode {
 	Queue<String> links = new LinkedList<String>();
 	
-	public webNode(Queue newQueue) {
+	public webNode(Queue<String> newQueue) {
 		links = newQueue;
 	}
 
 	
-	public LinkedList followLink(String URL, String keyWord) {
+	public Queue<String> followLink(String URL, String keyWord) {
 
 		//initializing things outside try/catch
 		ArrayList<String> arr = new ArrayList<String>();
@@ -44,13 +44,13 @@ public class webNode {
 			arr.add(line);
 			}
 		}
-		LinkedList newLL = new LinkedList();
-		newLL.addAll(arr);
+		Queue<String> newQ = new LinkedList<String>();
+		newQ.addAll(arr);
 		
 		//new webnode will be init by a method in webtree
-		return newLL;
+		return newQ;
 	}
-	public Queue getQueue() {
+	public Queue<String> getQueue() {
 		return links;
 	}
 	
@@ -58,7 +58,7 @@ public class webNode {
 		return links.remove();
 	}
 	
-	public void fillQueue(Queue newQueue) {
+	public void fillQueue(Queue<String> newQueue) {
 		links = newQueue;
 	}
 }

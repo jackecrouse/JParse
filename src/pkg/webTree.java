@@ -12,17 +12,36 @@ public class webTree {
 		keyWord = newWord;
 	}
 	
+	//---------------Antiquated code-------------------
 	public webNode followBranch(webNode oldNode) {
 		if (oldNode.dequeue() == null) {
 			return null;
 		}
 		String URL = oldNode.dequeue();
-		Queue newQueue = JParse.followLink(URL, keyWord);
+		Queue<String> newQueue = JParse.followLink(URL, keyWord);
 		webNode newNode = new webNode(newQueue);
 		return newNode;
 	}
+	//-------------------------------------------------
 	
-	public void updateMaster(Queue q) {
+	
+	public void updateMaster(Queue<String> q) {
 		masterList.addAll(q);
+	}
+	
+	public Set<String> getMasterList(){
+		return masterList;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void recurTrav(webNode node){
+		updateMaster(node.getQueue());
+		for(Object url: node.getQueue()) {
+			if(!(masterList.contains(url))) {
+				webNode newNode = new webNode((Queue<String>)JParse.followLink((String)url, keyWord));
+				recurTrav(newNode);
+			}
+		}
+		return;
 	}
 }
